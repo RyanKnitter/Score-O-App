@@ -1,0 +1,142 @@
+#:kivy 1.11.1
+
+<CheckPoint>:
+    size_hint: None, None
+    lineColor: (1, 1, 1, 1) if self.touched_switch == 0 else (113/255, 197/255, 232/255, 1)
+    canvas:
+        Color: 
+            rgba: self.lineColor
+        Line: 
+            ellipse: (self.x, self.y, self.size[0], self.size[1]) 
+            width: 1.1
+            
+<StartFinish>:
+    size_hint: None, None
+    lineColor: (1, 1, 1, 1) if self.touched_switch == 0 else (113/255, 197/255, 232/255, 1)
+    canvas:
+        Color: 
+            rgba: self.lineColor
+        Line: 
+            points: (self.x, self.y, self.size[0] + self.x, self.y, self.size[0] / 2 + self.x, self.size[1] + self.y)
+            width: 1.1
+            cap:'round'
+            joint: 'round'
+            close: True
+            
+<MainLayout>:
+    gameTmr: gameTmr
+    orientation: 'vertical'
+    spacing: 10
+    padding: 10
+    
+    BoxLayout:
+        orientation: 'horizontal'
+        spacing: 10
+        padding: 10
+        size_hint: 1, .15
+        
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.width, 0.5
+                Color: 
+                    rgb: 0.88, 0.88, 0.88
+        
+        Label:
+            text: 'Score-O'
+            font_size: min(self.height * 0.9, 30)
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            
+            
+        NewGameButton:
+            oMp: oMp
+            gameTmr: gameTmr
+            oMapLabel: oMapLabel            
+            shrtDistLabel: shrtDistLabel
+            yourDistLabel: yourDistLabel
+            text: 'New Game'
+            padding: 10, 10
+            size: 90, 0
+            size_hint: None, 1
+            font_size: self.height / 2 * 0.7
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            #on_release: oMp.count_down()
+            
+               
+    oMap:
+        id: oMp
+        gameTmr: gameTmr
+        oMapLabel: oMapLabel
+        shrtDistLabel: shrtDistLabel
+        yourDistLabel: yourDistLabel
+        size: root.size
+        pos: root.pos
+        
+        Label:
+            id: oMapLabel
+            size: oMp.size
+            pos: oMp.pos
+            text: oMp.instructions
+            font_size: oMp.height * 0.05
+            text_size: oMp.size
+            halign: 'center'
+            valign: 'middle'
+
+
+    BoxLayout:
+        orientation: 'horizontal'
+        spacing: 10
+        padding: 10
+        size_hint: 1, .2
+        
+        Label:
+            id: shrtDistLabel
+            text: 'Shortest Distance'
+            font_size: min(self.height * 0.4, 20)
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            
+            canvas:
+                Color:
+                    rgba: 0.88, 0.88, 0.88, 1
+                    
+                Line:
+                    width: .25
+                    rectangle: self.x, self.y, self.width, self.height
+            
+        Label:
+            id: yourDistLabel
+            text: 'Your Distance'
+            font_size: min(self.height * 0.4, 20)
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            
+            canvas:
+                Color:
+                    rgba: 0.88, 0.88, 0.88, 1
+                    
+                Line:
+                    width: .25
+                    rectangle: self.x, self.y, self.width, self.height
+            
+        GameTimer:
+            id: gameTmr
+            text: '00:00.0'  
+            font_size: min(self.height * 0.4, 20)
+            text_size: self.size 
+            halign: 'center'
+            valign: 'middle'      
+            
+            canvas:
+                Color:
+                    rgba: 0.88, 0.88, 0.88, 1
+                    
+                Line:
+                    width: .25
+                    rectangle: self.x, self.y, self.width, self.height
